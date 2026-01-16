@@ -7,6 +7,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "dev": "concurrently \"bun run dev:server\" \"bun dev:vite\"",
+    "dev:cached": "concurrently \"bun run dev:server\" \"bun dev:vite --mode cached\"",
     "dev:server": "bun run dev-server.js",
     "dev:vite": "vite",
     "build": "vite build"
