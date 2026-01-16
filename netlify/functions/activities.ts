@@ -1,5 +1,5 @@
 import { Handler } from "@netlify/functions";
-import { fetchActivities } from "../../src/api/getActivities";
+import { fetchActivities } from "../../src/api/fetchActivities";
 
 export const handler: Handler = async (event) => {
   console.log("Function called with method:", event.httpMethod);
