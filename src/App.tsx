@@ -4,6 +4,7 @@ import axios from "axios";
 import { truncateTwoDecimals } from "./utils/numberUtils";
 import type { Activity } from "@intervals-icu/js-data-model";
 import { getApiUrl } from "./api/config";
+import { Heading } from "@chakra-ui/react";
 
 type Distance = {
   distance: number;
@@ -19,8 +20,6 @@ const calculateTotal = (distances: Distance[]): number =>
 function App() {
   const [totalOne, setTotalOne] = useState<number>(0); // red panda points
   const [totalTwo, setTotalTwo] = useState<number>(0); // growling monkey points
-
-  console.log("env", import.meta.env.MODE);
 
   const update = (totalOne: number, totalTwo: number) => {
     setTotalOne(totalOne);
@@ -46,7 +45,7 @@ function App() {
   }, []);
   return (
     <>
-      <h1>Aloka</h1>
+      <Heading>Leaderboard for running since 11/01/2026</Heading>
       <p>Panda Vermelho: {truncateTwoDecimals(totalOne / 1000)} km</p>
       <p>Macaco Bugio: {truncateTwoDecimals(totalTwo / 1000)} km</p>
     </>
