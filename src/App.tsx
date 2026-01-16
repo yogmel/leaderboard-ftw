@@ -1,63 +1,54 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
-
-type ICU_Partial = {
-  type: string;
-  distance: number;
-};
+import { truncateTwoDecimals } from "./utils/numberUtils";
+import type { Activity } from "@intervals-icu/js-data-model";
+import { getApiUrl } from "./api/config";
 
 type Distance = {
   distance: number;
 };
 
-function truncateTwoDecimals(num: number) {
-  return Math.trunc(num * 100 + 1e-8) / 100;
-}
+const filterDistance = (intervalsData: Activity[]): Distance[] =>
+  intervalsData
+    .filter((activity) => activity.type.toLowerCase().includes("run"))
+    .map((activity) => ({ distance: activity.distance }));
+const calculateTotal = (distances: Distance[]): number =>
+  distances.reduce((initial, acc) => initial + acc.distance, 0);
 
 function App() {
-  const [somaUm, setSomaUm] = useState<number>(0);
-  const [somaDois, setSomaDois] = useState<number>(0);
+  const [totalOne, setTotalOne] = useState<number>(0); // red panda points
+  const [totalTwo, setTotalTwo] = useState<number>(0); // growling monkey points
 
-  const update = (somaUm: number, somaDois: number) => {
-    setSomaUm(somaUm);
-    setSomaDois(somaDois);
+  console.log("env", import.meta.env.MODE);
+
+  const update = (totalOne: number, totalTwo: number) => {
+    setTotalOne(totalOne);
+    setTotalTwo(totalTwo);
   };
 
   const fetchDataTwo = async () => {
-    const data = await axios.get("/.netlify/functions/intervals");
+    const data = await axios.get(getApiUrl("activities"));
 
-    console.log("data", data.data.dataOne);
+    const a = filterDistance(data.data.dataOne);
+    const b = filterDistance(data.data.dataTwo);
 
-    const a: Distance[] = data.data.dataOne
-      .filter((m: ICU_Partial) => m.type === "Run" || m.type === "VirtualRun")
-      .map((m: ICU_Partial) => ({ distance: m.distance }));
+    const totalOne = calculateTotal(a);
+    const totalTwo = calculateTotal(b);
 
-    const b: Distance[] = data.data.dataTwo
-      .filter((m: ICU_Partial) => m.type === "Run" || m.type === "VirtualRun")
-      .map((m: ICU_Partial) => ({ distance: m.distance }));
-
-    const somaUm = b.reduce((initial, acc) => {
-      return initial + acc.distance;
-    }, 0);
-
-    const somaDois = a.reduce((initial, acc) => {
-      return initial + acc.distance;
-    }, 0);
-
-    return { somaUm, somaDois };
+    return { totalOne, totalTwo };
   };
 
   useEffect(() => {
     fetchDataTwo().then((data) => {
-      update(data.somaUm, data.somaDois);
+      update(data.totalOne, data.totalTwo);
     });
   }, []);
   return (
     <>
       <h1>Aloka</h1>
-      <p>Macaco Bugio: {truncateTwoDecimals(somaUm / 1000)} km</p>
-      <p>Panda Vermelho: {truncateTwoDecimals(somaDois / 1000)} km</p>
+      <p>Panda Vermelho: {truncateTwoDecimals(totalOne / 1000)} km</p>
+      <p>Macaco Bugio: {truncateTwoDecimals(totalTwo / 1000)} km</p>
     </>
   );
 }
