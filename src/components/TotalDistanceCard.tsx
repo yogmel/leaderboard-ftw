@@ -1,4 +1,4 @@
-import { truncateTwoDecimals } from "../utils/numberUtils";
+import { transformToKm } from "../utils/numberUtils";
 
 interface TotalDistanceCardProps {
   totalOne: number;
@@ -8,8 +8,8 @@ interface TotalDistanceCardProps {
 function TotalDistanceCard({ totalOne, totalTwo }: TotalDistanceCardProps) {
   return (
     <>
-      <p>Panda Vermelho: {truncateTwoDecimals(totalOne / 1000)} km</p>
-      <p>Macaco Bugio: {truncateTwoDecimals(totalTwo / 1000)} km</p>
+      <p>Panda Vermelho: {transformToKm(totalOne)} km</p>
+      <p>Macaco Bugio: {transformToKm(totalTwo)} km</p>
     </>
   );
 }
