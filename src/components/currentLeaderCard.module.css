@@ -1,8 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  position: relative;
-  left: -70px;
   justify-content: center;
   text-align: left;
+  margin-left: 20px;
 }
