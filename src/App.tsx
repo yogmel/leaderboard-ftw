@@ -4,11 +4,10 @@ import AllActivitiesCard from "./components/AllActivitiesCard";
 import { useActivities } from "./hooks/useActivities";
 import CurrentLeaderCard from "./components/CurrentLeaderCard";
 import styles from "./styles/typography.module.css";
-import { truncateTwoDecimals } from "./utils/numberUtils";
 
 function App() {
-  const { totalOne, totalTwo, runningDataOne, runningDataTwo, isLoading } =
-    useActivities();
+  const { athleteData, isLoading } = useActivities();
+  const athletesArray = Object.values(athleteData);
 
   return (
     <>
@@ -30,14 +29,8 @@ function App() {
         />
       ) : (
         <>
-          <CurrentLeaderCard
-            totalOne={truncateTwoDecimals(totalOne)}
-            totalTwo={truncateTwoDecimals(totalTwo)}
-          />
-          <AllActivitiesCard
-            runningDataOne={runningDataOne}
-            runningDataTwo={runningDataTwo}
-          />
+          <CurrentLeaderCard athletes={athletesArray} />
+          <AllActivitiesCard athletes={athletesArray} />
         </>
       )}
     </>

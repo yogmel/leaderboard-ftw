@@ -1,47 +1,78 @@
 import axios from "axios";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { getApiUrl } from "../api/config";
 import {
   getTotalFromActivities,
   mapActivities,
   type RunningActivity,
 } from "../services/processActivities";
+import BugioImg from "./../assets/growling-monkey.png";
+import PandaImg from "./../assets/red-panda.png";
+import { truncateTwoDecimals } from "../utils/numberUtils";
+
+export interface AthleteData {
+  runningActivities: RunningActivity[];
+  total: number;
+  img: string;
+  name: string;
+}
 
 interface UseActivities {
-  runningDataOne: RunningActivity[];
-  runningDataTwo: RunningActivity[];
-  totalOne: number;
-  totalTwo: number;
+  athleteData: Record<string, AthleteData>;
   isLoading: boolean;
 }
 
 const isCached = import.meta.env.MODE === "cached";
-// const defaultTotalOne = 23000;
-// const defaultTotalTwo = 22000;
+
+const DATA_KEYS = ["panda", "bugio"] as const;
+const ATHLETE_CONFIG = {
+  panda: { img: PandaImg, name: "Panda Vermelho" },
+  bugio: { img: BugioImg, name: "Macaco Bugio" },
+} as const;
 
 export const useActivities = (): UseActivities => {
-  const [runningDataOne, setRunningDataOne] = useState<RunningActivity[]>([]);
-  const [runningDataTwo, setRunningDataTwo] = useState<RunningActivity[]>([]);
+  const [athleteData, setAthleteData] = useState<Record<string, AthleteData>>(
+    Object.fromEntries(
+      DATA_KEYS.map((key) => [
+        key,
+        {
+          runningActivities: [],
+          total: 0,
+          img: ATHLETE_CONFIG[key].img,
+          name: ATHLETE_CONFIG[key].name,
+        },
+      ])
+    )
+  );
   const [isLoading, setIsLoading] = useState<boolean>(!isCached);
 
   const fetchActivities = async () => {
-    const data = await axios.get(getApiUrl("activities"));
+    const response = await axios.get(getApiUrl("activities"));
 
-    const runningActivitiesOne = mapActivities(data.data.dataOne);
-    const runningActivitiesTwo = mapActivities(data.data.dataTwo);
-
-    return {
-      runningDataOne: runningActivitiesOne,
-      runningDataTwo: runningActivitiesTwo,
-    };
+    return Object.fromEntries(
+      DATA_KEYS.map((key) => {
+        const runningActivities = mapActivities(response.data[key]);
+        const total = truncateTwoDecimals(
+          getTotalFromActivities(runningActivities)
+        );
+        return [
+          key,
+          {
+            runningActivities,
+            total,
+            img: ATHLETE_CONFIG[key].img,
+            name: ATHLETE_CONFIG[key].name,
+          },
+        ];
+      })
+    );
   };
 
   useEffect(() => {
     if (!isCached) {
       fetchActivities()
         .then((data) => {
-          setRunningDataOne(data.runningDataOne);
-          setRunningDataTwo(data.runningDataTwo);
+          setAthleteData(data);
         })
         .finally(() => {
           setIsLoading(false);
@@ -49,13 +80,5 @@ export const useActivities = (): UseActivities => {
     }
   }, []);
 
-  const totalOne = useMemo(() => {
-    return getTotalFromActivities(runningDataOne);
-  }, [runningDataOne]);
-
-  const totalTwo = useMemo(() => {
-    return getTotalFromActivities(runningDataTwo);
-  }, [runningDataTwo]);
-
-  return { runningDataOne, totalOne, runningDataTwo, totalTwo, isLoading };
+  return { athleteData, isLoading };
 };

@@ -1,26 +1,20 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
-import type { RunningActivity } from "../services/processActivities";
+import type { AthleteData } from "../hooks/useActivities";
 import AllActivitiesTable from "./AllActivitiesTable";
 
 interface AllActivitiesCardProps {
-  runningDataOne: RunningActivity[];
-  runningDataTwo: RunningActivity[];
+  athletes: AthleteData[];
 }
 
-function AllActivitiesCard({
-  runningDataOne,
-  runningDataTwo,
-}: AllActivitiesCardProps) {
+function AllActivitiesCard({ athletes }: AllActivitiesCardProps) {
   return (
     <Flex justify="space-around">
-      <Box w="40%">
-        <Heading>Panda Vermelho</Heading>
-        <AllActivitiesTable runningData={runningDataOne} />
-      </Box>
-      <Box w="40%">
-        <Heading>Macaco Bugio</Heading>
-        <AllActivitiesTable runningData={runningDataTwo} />
-      </Box>
+      {athletes.map((athlete) => (
+        <Box w="40%" key={athlete.name}>
+          <Heading>{athlete.name}</Heading>
+          <AllActivitiesTable runningData={athlete.runningActivities} />
+        </Box>
+      ))}
     </Flex>
   );
 }
