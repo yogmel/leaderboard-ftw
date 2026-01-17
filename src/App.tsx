@@ -1,12 +1,14 @@
 import "./App.css";
 import { Heading, Highlight, Skeleton } from "@chakra-ui/react";
-import TotalDistanceCard from "./components/TotalDistanceCard";
+import AllActivitiesCard from "./components/AllActivitiesCard";
 import { useActivities } from "./hooks/useActivities";
 import CurrentLeaderCard from "./components/CurrentLeaderCard";
 import styles from "./styles/typography.module.css";
+import { truncateTwoDecimals } from "./utils/numberUtils";
 
 function App() {
-  const { totalOne, totalTwo, isLoading } = useActivities();
+  const { totalOne, totalTwo, runningDataOne, runningDataTwo, isLoading } =
+    useActivities();
 
   return (
     <>
@@ -28,9 +30,14 @@ function App() {
         />
       ) : (
         <>
-          <CurrentLeaderCard totalOne={totalOne} totalTwo={totalTwo} />
-
-          <TotalDistanceCard totalOne={totalOne} totalTwo={totalTwo} />
+          <CurrentLeaderCard
+            totalOne={truncateTwoDecimals(totalOne)}
+            totalTwo={truncateTwoDecimals(totalTwo)}
+          />
+          <AllActivitiesCard
+            runningDataOne={runningDataOne}
+            runningDataTwo={runningDataTwo}
+          />
         </>
       )}
     </>

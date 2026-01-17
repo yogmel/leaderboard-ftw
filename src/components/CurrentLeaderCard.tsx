@@ -3,7 +3,8 @@ import BugioImg from "./../assets/growling-monkey.png";
 import PandaImg from "./../assets/red-panda.png";
 import styles from "./../styles/typography.module.css";
 import currentLeaderCardStyles from "./currentLeaderCard.module.css";
-import { transformToKm } from "../utils/numberUtils";
+import { truncateTwoDecimals } from "../utils/numberUtils";
+import TotalsDataList from "./TotalsDataList";
 
 interface TotalDistanceCardProps {
   totalOne: number;
@@ -26,7 +27,8 @@ function CurrentLeaderCard({ totalOne, totalTwo }: TotalDistanceCardProps) {
         <Heading size={"6xl"} className={styles.currentLeaderSubtitle}>
           {winnerText}
         </Heading>
-        <Heading size={"2xl"}>+ {transformToKm(difference)} km</Heading>
+        <Heading size={"2xl"}>+ {truncateTwoDecimals(difference)} km</Heading>
+        <TotalsDataList totalOne={totalOne} totalTwo={totalTwo} />
       </div>
     </Flex>
   );
