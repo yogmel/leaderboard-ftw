@@ -1,16 +1,10 @@
-import {
-  DataList,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Separator,
-} from "@chakra-ui/react";
+import { Flex, Heading, Image } from "@chakra-ui/react";
 import BugioImg from "./../assets/growling-monkey.png";
 import PandaImg from "./../assets/red-panda.png";
 import styles from "./../styles/typography.module.css";
 import currentLeaderCardStyles from "./currentLeaderCard.module.css";
 import { truncateTwoDecimals } from "../utils/numberUtils";
+import TotalsDataList from "./TotalsDataList";
 
 interface TotalDistanceCardProps {
   totalOne: number;
@@ -34,23 +28,7 @@ function CurrentLeaderCard({ totalOne, totalTwo }: TotalDistanceCardProps) {
           {winnerText}
         </Heading>
         <Heading size={"2xl"}>+ {truncateTwoDecimals(difference)} km</Heading>
-        <HStack mt="2" gap="4">
-          <DataList.Root orientation="horizontal">
-            <DataList.Item key={"Panda Vermelho"}>
-              <DataList.ItemLabel>{"Panda Vermelho"}</DataList.ItemLabel>
-              <DataList.ItemValue>{totalOne} km</DataList.ItemValue>
-            </DataList.Item>
-          </DataList.Root>
-
-          <Separator orientation="vertical" height="4" />
-
-          <DataList.Root orientation="horizontal">
-            <DataList.Item key={"Macaco Bugio"}>
-              <DataList.ItemLabel>{"Macaco Bugio"}</DataList.ItemLabel>
-              <DataList.ItemValue>{totalTwo} km</DataList.ItemValue>
-            </DataList.Item>
-          </DataList.Root>
-        </HStack>
+        <TotalsDataList totalOne={totalOne} totalTwo={totalTwo} />
       </div>
     </Flex>
   );
