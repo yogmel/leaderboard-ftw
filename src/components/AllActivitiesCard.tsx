@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Table } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import type { RunningActivity } from "../services/processActivities";
 import AllActivitiesTable from "./AllActivitiesTable";
 
