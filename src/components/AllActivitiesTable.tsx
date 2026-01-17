@@ -14,6 +14,9 @@ const AllActivitiesTable: FC<AllActivitiesTableProps> = ({ runningData }) => {
           <Table.ColumnHeader>Date</Table.ColumnHeader>
           <Table.ColumnHeader>Type</Table.ColumnHeader>
           <Table.ColumnHeader textAlign="end">Distance (km)</Table.ColumnHeader>
+          <Table.ColumnHeader textAlign="end">
+            Partial total (km)
+          </Table.ColumnHeader>
         </Table.Row>
       </Table.Header>
 
@@ -23,6 +26,7 @@ const AllActivitiesTable: FC<AllActivitiesTableProps> = ({ runningData }) => {
             <Table.Cell>{item.date}</Table.Cell>
             <Table.Cell>{item.type}</Table.Cell>
             <Table.Cell textAlign="end">{item.distance}</Table.Cell>
+            <Table.Cell textAlign="end">{item.partial}</Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
