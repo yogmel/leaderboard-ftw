@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Funnel+Display:wght@300..800&family=Rubik+Dirt&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Funnel+Display:wght@300..800&family=Rubik+Dirt&display=swap");
 
 :root {
   font-family: "Funnel Display", system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -15,6 +15,8 @@
   -moz-osx-font-smoothing: grayscale;
 
   --chakra-fonts-heading: "Funnel Display";
+
+  --breakpoint-lg: 1024px;
 }
 
 a {

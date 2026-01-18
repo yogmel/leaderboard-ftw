@@ -23,13 +23,19 @@ function CurrentLeaderCard({ athletes }: CurrentLeaderCardProps) {
   const difference = winner.total - runnerUp.total;
 
   return (
-    <Flex style={{ top: "-70px" }}>
+    <Flex flexDirection={{ base: "column", lg: "row" }}>
       <Image src={winner.img} style={{ width: "100%", maxWidth: "600px" }} />
       <div className={currentLeaderCardStyles.card}>
-        <Heading size={"6xl"} className={styles.currentLeaderTitle}>
+        <Heading
+          size={{ base: "4xl", lg: "6xl" }}
+          className={styles.currentLeaderTitle}
+        >
           Current Leader
         </Heading>
-        <Heading size={"6xl"} className={styles.currentLeaderSubtitle}>
+        <Heading
+          size={{ base: "4xl", lg: "6xl" }}
+          className={styles.currentLeaderSubtitle}
+        >
           {winner.name}
         </Heading>
         <Heading size={"2xl"}>+ {truncateTwoDecimals(difference)} km</Heading>
