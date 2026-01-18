@@ -11,7 +11,11 @@ function App() {
 
   return (
     <>
-      <Heading size={{ base: "5xl", lg: "6xl" }} className={styles.title}>
+      <Heading
+        size={{ base: "5xl", lg: "6xl" }}
+        paddingTop={"6"}
+        className={styles.title}
+      >
         <Highlight query="for the win" styles={{ color: "#C3423F" }}>
           Leaderboard for the win
         </Highlight>

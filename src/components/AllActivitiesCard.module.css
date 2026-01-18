@@ -1,0 +1,10 @@
+.card {
+  background: #f4f4f6;
+  border-radius: 5px;
+  color: var(--background-color-dark);
+}
+
+.card th,
+.card td {
+  border-color: var(--background-color-dark);
+}
