@@ -13,7 +13,7 @@ function AllActivitiesCard({ athletes }: AllActivitiesCardProps) {
       justify="space-around"
       flexDirection={{ base: "column", lg: "row" }}
       className={allActivitiesCardStyles.card}
-      // p="6"
+      p="4"
     >
       {athletes.map((athlete) => (
         <Box w={{ lg: "40%" }} paddingBottom="30px" key={athlete.name}>
