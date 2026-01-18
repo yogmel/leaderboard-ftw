@@ -12,8 +12,8 @@ interface FetchActivitiesParams {
 interface FetchActivitiesResult {
   success: boolean;
   data?: {
-    dataOne: Activity[];
-    dataTwo: Activity[];
+    panda: Activity[];
+    bugio: Activity[];
   };
   error?: {
     message: string;
@@ -60,8 +60,8 @@ export async function fetchActivities(
     return {
       success: true,
       data: {
-        dataOne: responseOne.data,
-        dataTwo: responseTwo.data,
+        panda: responseOne.data,
+        bugio: responseTwo.data,
       },
     };
   } catch (error) {
