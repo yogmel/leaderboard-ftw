@@ -10,7 +10,7 @@ const AllActivitiesTable: FC<AllActivitiesTableProps> = ({ runningData }) => {
   return (
     <Table.Root size="sm">
       <Table.Header>
-        <Table.Row>
+        <Table.Row background="transparent">
           <Table.ColumnHeader>Date</Table.ColumnHeader>
           <Table.ColumnHeader>Type</Table.ColumnHeader>
           <Table.ColumnHeader textAlign="end">Distance (km)</Table.ColumnHeader>
@@ -22,7 +22,7 @@ const AllActivitiesTable: FC<AllActivitiesTableProps> = ({ runningData }) => {
 
       <Table.Body>
         {runningData.map((item) => (
-          <Table.Row key={item.date}>
+          <Table.Row key={item.date} background="transparent">
             <Table.Cell>{item.date}</Table.Cell>
             <Table.Cell>{item.type}</Table.Cell>
             <Table.Cell textAlign="end">{item.distance}</Table.Cell>
