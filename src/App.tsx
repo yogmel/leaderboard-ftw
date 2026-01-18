@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      <Heading size={"6xl"} className={styles.title}>
+      <Heading size={{ base: "5xl", lg: "6xl" }} className={styles.title}>
         <Highlight query="for the win" styles={{ color: "#C3423F" }}>
           Leaderboard for the win
         </Highlight>
@@ -21,7 +21,7 @@ function App() {
         <Skeleton
           variant="shine"
           width="full"
-          height="20"
+          height="10"
           css={{
             "--start-color": "colors.pink.500",
             "--end-color": "colors.orange.500",

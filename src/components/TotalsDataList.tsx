@@ -8,17 +8,21 @@ interface TotalDataListProps {
 
 const TotalsDataList: FC<TotalDataListProps> = ({ athletes }) => {
   return (
-    <HStack mt="2" gap="4">
+    <HStack
+      mt="2"
+      gap="4"
+      justifyContent={{ base: "center", lg: "flex-start" }}
+    >
       {athletes.map((athlete, index) => (
         <Fragment key={athlete.name}>
-          <DataList.Root orientation="horizontal">
+          <DataList.Root size={{ base: "sm", lg: "md" }}>
             <DataList.Item>
               <DataList.ItemLabel>{athlete.name}</DataList.ItemLabel>
               <DataList.ItemValue>{athlete.total} km</DataList.ItemValue>
             </DataList.Item>
           </DataList.Root>
           {index < athletes.length - 1 && (
-            <Separator orientation="vertical" height="4" key={`sep-${index}`} />
+            <Separator orientation="vertical" height="8" key={`sep-${index}`} />
           )}
         </Fragment>
       ))}

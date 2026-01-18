@@ -8,9 +8,9 @@ interface AllActivitiesCardProps {
 
 function AllActivitiesCard({ athletes }: AllActivitiesCardProps) {
   return (
-    <Flex justify="space-around">
+    <Flex justify="space-around" flexDirection={{ base: "column", lg: "row" }}>
       {athletes.map((athlete) => (
-        <Box w="40%" key={athlete.name}>
+        <Box w={{ lg: "40%" }} paddingBottom="30px" key={athlete.name}>
           <Heading>{athlete.name}</Heading>
           <AllActivitiesTable runningData={athlete.runningActivities} />
         </Box>
