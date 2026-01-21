@@ -4,8 +4,13 @@ import AllActivitiesCard from "./components/AllActivitiesCard";
 import { useActivities } from "./hooks/useActivities";
 import CurrentLeaderCard from "./components/CurrentLeaderCard";
 import styles from "./styles/typography.module.css";
+import { useCountdown } from "./hooks/useCountdown";
 
 function App() {
+  const {
+    remainingDate: { days, hours },
+    targetDate: { day, month, year },
+  } = useCountdown();
   const { athleteData, isLoading } = useActivities();
   const athletesArray = Object.values(athleteData);
 
@@ -19,6 +24,9 @@ function App() {
         <Highlight query="for the win" styles={{ color: "#C3423F" }}>
           Leaderboard for the win
         </Highlight>
+      </Heading>
+      <Heading size={{ base: "lg", lg: "2xl" }} color="#858585">
+        Countdown: {days} days {hours} hours ({day}/{month}/{year})
       </Heading>
 
       {isLoading ? (
