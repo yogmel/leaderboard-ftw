@@ -23,14 +23,14 @@ interface FetchActivitiesResult {
 }
 
 export async function fetchActivities(
-  params: FetchActivitiesParams
+  params: FetchActivitiesParams,
 ): Promise<FetchActivitiesResult> {
   const {
     athleteIdOne,
     athleteIdTwo,
     apiKeyOne,
     apiKeyTwo,
-    oldestDate = "2026-01-11",
+    oldestDate = "2026-01-01",
   } = params;
 
   try {

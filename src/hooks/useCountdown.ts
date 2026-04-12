@@ -12,9 +12,9 @@ interface UseCountdown {
 
 export const useCountdown = (): UseCountdown => {
   const targetDate = {
-    month: 3,
-    day: 19,
-    year: 2026,
+    month: 1,
+    day: 1,
+    year: 2027,
   };
 
   const difference =
